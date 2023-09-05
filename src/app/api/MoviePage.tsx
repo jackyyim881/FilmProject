@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 type MovieProps = {
   title: string;
@@ -34,6 +35,7 @@ export default function MovieData({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
+  movieRes: ResultsProps;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<ResultsProps | null>(null);
@@ -57,15 +59,16 @@ export default function MovieData({
     getMovieData();
   }, [currentPage]);
   if (!data) {
-    return <div>Loading...</div>;
+    return <div className=" w-96 h-10 text-black bg-zinc-200">Loading...</div>;
   }
   return (
     <>
-      <div className="container relative ">
+      <div className=" ">
         <ScrollArea>
-          <div className="flex h-[500px]  max-w-[1200px] container space-x-4 pb-4 ">
+          <div className="flex min-h-full   space-x-4 pb-4 ">
             {data.results?.map((movie: MovieProps) => (
-              <Button
+              <Link
+                href={`/movie/${movie.id}`}
                 key={movie.id}
                 variant="ghost"
                 className="  w-2/4 h-[450px]  flex  flex-col justify-start font-normal   "
@@ -77,8 +80,8 @@ export default function MovieData({
                   width={300}
                   height={200}
                 />
-                <div className="m-4 flex flex-col items-center">
-                  <CardTitle>{movie.title}</CardTitle>
+                <div className="m-4  flex flex-col items-center">
+                  <CardTitle className="text-sm">{movie.title}</CardTitle>
                   <div>{movie.original_language}</div>
                   <div>{movie.vote_average}</div>
                   <div className="flex">
@@ -86,13 +89,13 @@ export default function MovieData({
                     {movie.vote_average % 1 >= 0.4 && <BsStarHalf />}
                   </div>
                 </div>
-              </Button>
+              </Link>
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </div>
-      <Separator />
+      <Separator className=" " />
       <div className=" space-x-4 flex justify-center items-center">
         <Button onClick={() => setCurrentPage((page) => page + 1)}>
           Next Page

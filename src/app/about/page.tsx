@@ -5,6 +5,8 @@ export default function Home() {
     <nav>
       <h1>Homepage</h1>
       <Link href="/about">About</Link>
+      <Link href="/article"> Article</Link>
+      <Link href="/preferential">Preferential</Link>
     </nav>
   );
 }

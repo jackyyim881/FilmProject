@@ -1,9 +1,10 @@
 import React from "react";
 import MovieData from "../api/page";
-export default function Home() {
+import GetMovieTest from "./MovieTest";
+export default function GetMovieLists() {
   return (
     <>
-      <div className=" flex  justify-between flex-col min-h-screen      p-10">
+      <div className="     min-h-screen      ">
         <MovieData />
       </div>
     </>

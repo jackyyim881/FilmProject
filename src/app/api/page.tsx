@@ -14,6 +14,7 @@ import {
 import { Card, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MovieData from "./MoviePage";
+import GetMovieTest from "../movie/MovieTest";
 type MovieProps = {
   title: string;
   id: number;
@@ -87,6 +88,7 @@ export default function Page() {
   return (
     <>
       <div className="container relative p-6">
+        {/* <MovieData /> */}
         <MovieData />
       </div>
     </>
