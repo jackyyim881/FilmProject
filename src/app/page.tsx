@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <>
       <div className=" flex  container justify-between flex-col         p-10">
-        <MovieList />
         <MovieHome />
       </div>
     </>

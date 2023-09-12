@@ -1,28 +1,23 @@
-"use client";
-export async function getData({ params }: { params: any }) {
-  const MovieData = await fetch("http://localhost:3000/api/test", {
-    method: "GET",
-  });
-  const data = await MovieData.json();
+import { use } from "react";
 
+async function getMovieData() {
   return (
-    <>
-      <div>
-        <h1>Movie Page</h1>
-        <div>{JSON.stringify(data)}</div>
-      </div>
-    </>
-  );
+    await fetch("http://localhost:3000/api/test", {
+      method: "GET",
+      cache: "no-cache",
+    })
+  ).json();
 }
 
 export default function GetMovieTest() {
-  const movieData = getData({ params: { id: 1 } });
+  const movieData = use(getMovieData());
+
   return (
     <>
-      <div className="min-h-screen">
+      <main className="min-h-screen">
         <h1>MovieTest</h1>
-        <div>{movieData}</div>
-      </div>
+        <div>{JSON.stringify(movieData)}</div>
+      </main>
     </>
   );
 }

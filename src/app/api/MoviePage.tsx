@@ -22,6 +22,7 @@ type MovieProps = {
   poster_path: string;
   original_language: string;
   vote_average: number;
+  overview: string;
 };
 
 type ResultsProps = {
@@ -32,10 +33,11 @@ type ResultsProps = {
 };
 
 export default function MovieData({
-  searchParams,
+  currentPageIndex,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
   movieRes: ResultsProps;
+  currentPageIndex: number;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [data, setData] = useState<ResultsProps | null>(null);
