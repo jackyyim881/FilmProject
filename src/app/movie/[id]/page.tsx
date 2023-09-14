@@ -1,29 +1,33 @@
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { NextResponse } from "next/server";
-import { useState } from "react";
-import { ReactNode } from "react";
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import getMovieIndex from "@/lib/getMovie";
-import GetMovieIndex from "@/lib/getMovie";
+import { Link } from "lucide-react";
 
-// async function getServerSideProps(): Promise<{ props: MovieProps }> {
-//   const movieRes = await fetch(
-//     `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
-//     {
-//       method: "GET",
-//       headers: {
-//         accept: "application/json",
-//         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_READ_ACCESS_TOKEN}`,
-//       },
-//     }
-//   );
-//   const movie = await movieRes.json();
-//   console.log(movie);
-//   return {
-//     props: movie,
-//   };
-// }
+type MovieProps = {
+  title: string;
+  id: number;
+  poster_path: string;
+  original_language: string;
+  vote_average: number;
+  overview: string;
+  budget: number;
+  homepage: string;
+  movie: any;
+  popularity: number;
+};
+
+async function fetchMovie(id: MovieProps) {
+  const movieRes = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_READ_ACCESS_TOKEN}`,
+      },
+    }
+  );
+  console.log("Fetching blog post with id: ", id);
+
+  return movieRes.json();
+}
 
 // export const getServerSideProps = async (params: MovieProps) => {
 //   const { id } = params;
@@ -44,21 +48,23 @@ import GetMovieIndex from "@/lib/getMovie";
 //   };
 // };
 
-export default function MoviePageIndex({
-  movie,
-  params,
-}: InferGetServerSidePropsType<typeof GetMovieIndex>) {
-  // const data = GetMovieIndex(params);
-
+export default async function MoviePageIndex({ params, searchParams }: any) {
+  const { id } = params;
+  const movie = await fetchMovie(id);
+  console.log("Rerendering  Movie post with id: ", id);
   return (
     <>
-      <div>
-        <div className="container relative p-6">{params.id}</div>
+      <div className="grid p-14">
+        <div className="max-w-[600px]">
+          <div>{movie.title}</div>
+          <div>{movie.overview}</div>
+          <Link href={movie.homepage}>hello</Link>
+          <div>{movie.popularity}</div>
+        </div>
       </div>
     </>
   );
 }
-
 // <PageWrapper>
 //   {data_movie.props.data.results?.map((movie: MovieProps) => (
 //     <div key={params.id} className=" mt-10">

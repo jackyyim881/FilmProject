@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-export default function MovieList(value: string) {
+export default function MovieList() {
   const tabs = [
     { value: "Movie", route: "/movie" },
     { value: "Article", route: "/article" },
